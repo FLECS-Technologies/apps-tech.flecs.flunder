@@ -1,0 +1,29 @@
+{
+    "_schemaVersion": "2.0.0",
+    "app": "tech.flecs.flunder",
+    "version": "##VERSION##",
+    "revision": "##FLECS_VERSION##",
+    "image": "flecs.azurecr.io/tech.flecs.flunder",
+    "multiInstance": false,
+    "editor": "",
+    "args": [
+        "--adminspace-permissions=rw",
+        "--rest-http-port=8000"
+    ],
+    "capabilities": [],
+    "conffiles": [],
+    "devices": [],
+    "env": [
+        "RUST_LOG:debug"
+    ],
+    "hostname": "flecs-flunder",
+    "interactive": false,
+    "networks": [],
+    "ports": [
+        "7447:7447"
+    ],
+    "startupOptions": [],
+    "volumes": [
+        "zenoh:/root/.zenoh"
+    ]
+}
