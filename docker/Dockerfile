@@ -16,6 +16,6 @@ RUN [ ! -z "${VERSION}" ]
 
 ADD docker/fs/ /
 
-ADD docker/assets/zenoh-0.10.0-rc-${ARCH}.tar.gz /
+ADD docker/assets/zenoh-1.0.0-${ARCH}.tar.xz /
 
 ENTRYPOINT [ "/entrypoint.sh" ]

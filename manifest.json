@@ -1,4 +1,5 @@
 {
+    "$schema": "https://raw.githubusercontent.com/FLECS-Technologies/app-sdk/main/manifest.schema.json",
     "_schemaVersion": "2.0.0",
     "app": "tech.flecs.flunder",
     "version": "##VERSION##",
@@ -7,6 +8,7 @@
     "multiInstance": false,
     "editor": "",
     "args": [
+        "--plugin=webserver",
         "--adminspace-permissions=rw",
         "--rest-http-port=8000"
     ],
@@ -14,10 +16,9 @@
     "conffiles": [],
     "devices": [],
     "env": [
-        "RUST_LOG:debug"
+        "RUST_LOG=debug"
     ],
     "hostname": "flecs-flunder",
-    "interactive": false,
     "networks": [],
     "ports": [
         "7447:7447"
