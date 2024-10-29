@@ -8,7 +8,8 @@
     "multiInstance": false,
     "editor": "",
     "args": [
-        "--plugin=webserver",
+        "--plugin=rest",
+        "--plugin=storage_manager",
         "--adminspace-permissions=rw",
         "--rest-http-port=8000"
     ],
