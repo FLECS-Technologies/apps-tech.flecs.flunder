@@ -6,7 +6,7 @@
     "revision": "##FLECS_VERSION##",
     "image": "flecs.azurecr.io/tech.flecs.flunder",
     "multiInstance": false,
-    "editor": "",
+    "editor": ":80",
     "args": [
         "--plugin=rest",
         "--plugin=storage_manager",

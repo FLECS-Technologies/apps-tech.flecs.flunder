@@ -1,3 +1,6 @@
 #!/bin/bash
-echo " * Starting: /zenohd $*"
+echo " * Starting: nginx"
+nginx
+
+echo " * Starting: zenohd"
 exec /zenohd $*
