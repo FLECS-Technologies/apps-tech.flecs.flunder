@@ -1,21 +1,24 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import {
-  AppBar,
   Box,
   CssBaseline,
   FormControlLabel,
   Paper,
   Stack,
   Switch,
+  Tooltip,
 } from "@mui/material";
 
 import { ThemeProvider, useColorScheme } from "@mui/material/styles";
 
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { theme } from "@whitelabeling/custom-theme";
-import { browse, flunderVariable } from "./services/flunder/flunder";
-import Logo from "@whitelabeling/Logo";
+import {
+  browse,
+  decodeFlunderVariable,
+  flunderVariable,
+} from "./services/flunder/flunder";
 import ElevateAppBar from "@components/ElevateAppBar";
 
 function validateInterval(t: number) {
@@ -38,9 +41,12 @@ const columns: GridColDef[] = [
     width: 150,
   },
   {
-    field: "timestamp",
+    field: "dateTime",
     headerName: "Timestamp",
     width: 150,
+    renderCell: (params: any) => (
+      <Tooltip title={params.row.timestamp}>{params.value}</Tooltip>
+    ),
   },
 ];
 
@@ -61,7 +67,7 @@ function MyApp() {
         };
 
         const res = (await browse("**")).map((item) => {
-          return { ...item, id: createId() };
+          return { ...decodeFlunderVariable(item), id: createId() };
         });
         setVariables(res);
       } catch {
@@ -73,16 +79,14 @@ function MyApp() {
     };
   }, [autoRefreshInterval]);
 
-  const { mode, setMode } = useColorScheme();
+  const { mode } = useColorScheme();
   if (!mode) return null;
-
-  setMode("dark");
 
   return (
     <>
       <CssBaseline />
       <ElevateAppBar />
-      <Paper sx={{ marginTop: 8, p: 2 }}>
+      <Paper elevation={0} sx={{ marginTop: 2, p: 2 }}>
         <Stack direction="row">
           <FormControlLabel
             control={

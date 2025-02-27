@@ -36,13 +36,10 @@ export default function ElevateAppBar(props: Props) {
   return (
     <>
       <ElevationScroll {...props}>
-        <AppBar
-          position="fixed"
-          sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          enableColorOnDark
-        >
+        <AppBar position="sticky" enableColorOnDark>
           <Toolbar>
             <Logo />
+            <div style={{ flexGrow: 1 }} />
             <HelpButton url={flecsHelpUrl} />
             <SwitchThemeButton />
           </Toolbar>

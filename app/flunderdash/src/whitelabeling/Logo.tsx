@@ -24,9 +24,7 @@ const Logo: React.FC = () => {
       <IconButton aria-label="logo" disabled={true}>
         <img src="src/assets/images/logo.svg" width="24" height="24" />
       </IconButton>
-      <Typography variant="h6" sx={{ flexGrow: 1 }}>
-        FLECS
-      </Typography>
+      <Typography variant="h6">FLECS</Typography>
     </>
   );
 };
