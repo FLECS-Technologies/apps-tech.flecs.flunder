@@ -1,20 +1,22 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import {
+  AppBar,
   Box,
   CssBaseline,
   FormControlLabel,
   Paper,
   Stack,
   Switch,
-  TextField,
 } from "@mui/material";
 
 import { ThemeProvider, useColorScheme } from "@mui/material/styles";
 
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { theme } from "./Theme";
+import { theme } from "@whitelabeling/custom-theme";
 import { browse, flunderVariable } from "./services/flunder/flunder";
+import Logo from "@whitelabeling/Logo";
+import ElevateAppBar from "@components/ElevateAppBar";
 
 function validateInterval(t: number) {
   if (t < 1 || t > 10) {
@@ -47,6 +49,9 @@ function MyApp() {
   const [variables, setVariables] = useState<flunderVariable[]>([]);
 
   useEffect(() => {
+    if (autoRefreshInterval == 0) {
+      return () => {};
+    }
     const interval = setInterval(async () => {
       try {
         let id = 0;
@@ -66,7 +71,7 @@ function MyApp() {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [autoRefreshInterval]);
 
   const { mode, setMode } = useColorScheme();
   if (!mode) return null;
@@ -74,19 +79,30 @@ function MyApp() {
   setMode("dark");
 
   return (
-    <Paper sx={{ p: 2 }}>
-      <Stack direction="row">
-        <FormControlLabel
-          control={<Switch defaultChecked />}
-          label="Auto refresh"
-        />
-      </Stack>
-      <Box sx={{ width: "100%" }}>
-        <Box sx={{ height: 400, mt: 1 }}>
-          <DataGrid rows={variables} columns={columns} />
+    <>
+      <CssBaseline />
+      <ElevateAppBar />
+      <Paper sx={{ marginTop: 8, p: 2 }}>
+        <Stack direction="row">
+          <FormControlLabel
+            control={
+              <Switch
+                defaultChecked
+                onChange={(e) => {
+                  setAutoRefreshInterval(+e.target.checked);
+                }}
+              />
+            }
+            label="Auto refresh"
+          />
+        </Stack>
+        <Box sx={{ width: "100%" }}>
+          <Box sx={{ height: 400, mt: 1 }}>
+            <DataGrid rows={variables} columns={columns} />
+          </Box>
         </Box>
-      </Box>
-    </Paper>
+      </Paper>
+    </>
   );
 }
 
@@ -94,7 +110,6 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
         <MyApp />
       </ThemeProvider>
     </>
