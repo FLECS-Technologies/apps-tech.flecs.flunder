@@ -1,4 +1,4 @@
-import { AppBar, CssBaseline, Toolbar, useScrollTrigger } from "@mui/material";
+import { AppBar, Toolbar, useScrollTrigger } from "@mui/material";
 import React from "react";
 import Logo from "../whitelabeling/Logo";
 import HelpButton from "./buttons/HelpButton";
