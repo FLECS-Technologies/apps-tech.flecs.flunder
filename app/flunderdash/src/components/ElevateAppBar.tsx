@@ -1,8 +1,6 @@
 import { AppBar, Toolbar, useScrollTrigger } from "@mui/material";
 import React from "react";
 import Logo from "../whitelabeling/Logo";
-import HelpButton from "./buttons/HelpButton";
-import { flecsHelpUrl } from "./help/HelpLinks";
 import SwitchThemeButton from "./buttons/SwitchThemeButton";
 
 interface Props {
@@ -40,7 +38,6 @@ export default function ElevateAppBar(props: Props) {
           <Toolbar>
             <Logo />
             <div style={{ flexGrow: 1 }} />
-            <HelpButton url={flecsHelpUrl} />
             <SwitchThemeButton />
           </Toolbar>
         </AppBar>

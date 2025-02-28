@@ -29,12 +29,17 @@ const columns: GridColDef[] = [
   },
 ];
 
+/** @todo use when setting custom intervals becomes a thing
+ *
+ */
+/*
 function validateInterval(t: number) {
   if (t < 1 || t > 10) {
     return false;
   }
   return true;
 }
+*/
 
 export default function FlunderDash() {
   const [autoRefreshInterval, setAutoRefreshInterval] = useState(1);
