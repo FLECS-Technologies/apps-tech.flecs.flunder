@@ -17,12 +17,13 @@
  */
 import React from "react";
 import { IconButton, Typography } from "@mui/material";
+import LogoSvg from "@assets/images/logo.svg";
 
 const Logo: React.FC = () => {
   return (
     <>
       <IconButton aria-label="logo" disabled={true}>
-        <img src="src/assets/images/logo.svg" width="24" height="24" />
+        <img src={LogoSvg} width="24" height="24" />
       </IconButton>
       <Typography variant="h6">FLECS</Typography>
     </>
