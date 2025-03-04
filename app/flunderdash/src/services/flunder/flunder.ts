@@ -1,5 +1,6 @@
 import axios from "axios";
 import { toByteArray } from "base64-js";
+import { ntpToUnixTime } from "@util/NtpTime";
 
 export interface flunderVariable {
   key: string;
@@ -19,13 +20,11 @@ export function decodeFlunderVariable(v: flunderVariable): flunderVariable {
   } finally {
   }
 
-  /* convert ntp timestamp to unix time */
-  const ntpTimestamp = parseInt(v.timestamp.split("/")[0])
-    .toString(16)
-    .padStart(16, "0");
-  const seconds = parseInt(ntpTimestamp.substring(0, 8), 16);
-  const fractions = parseInt(ntpTimestamp.substring(8, 16), 16);
-  const unixTimestamp = (seconds + fractions / 0xffffffff) * 1_000_000;
+  /* convert ntp 64-bit timestamp to unix time */
+  /* timestamp is split in two parts: <timestamp>/<router_id> */
+  /* extract timestamp and convert to 16-digit hexadecimal (64-bit value) */
+  const ntpTimestamp = parseInt(v.timestamp.split("/")[0]);
+  const unixTimestamp = ntpToUnixTime(ntpTimestamp);
   v.timestamp = unixTimestamp.toFixed(0);
   v.dateTime = new Date(parseInt(v.timestamp) / 1000).toLocaleString();
 
@@ -33,7 +32,7 @@ export function decodeFlunderVariable(v: flunderVariable): flunderVariable {
 }
 
 export async function browse(filter: string): Promise<flunderVariable[]> {
-  const url = "http://172.21.0.2:8000/" + (filter.length ? filter : "**");
+  const url = "http://localhost:8000/" + (filter.length ? filter : "**");
   const variables = await axios
     .get(url)
     .then((res) => {

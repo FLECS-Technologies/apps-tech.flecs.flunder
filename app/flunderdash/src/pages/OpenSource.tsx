@@ -1,13 +1,16 @@
 import { Typography } from "@mui/material";
 
-import openSourceTxt from "@assets/open-source.txt";
-import { useState } from "react";
+import openSourceTxt from "@assets/third-party-licenses.txt";
+import { useEffect, useState } from "react";
 
 export default function OpenSource() {
   const [content, setContent] = useState("");
-  fetch(openSourceTxt)
-    .then((response) => response.text())
-    .then((text) => setContent(text));
+  useEffect(() => {
+    fetch(openSourceTxt)
+      .then((response) => response.text())
+      .then(setContent);
+  }, []);
+
   return (
     <>
       <Typography variant="h4">Open Source</Typography>
